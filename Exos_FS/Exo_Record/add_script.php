@@ -1,7 +1,7 @@
 <?php
 try {
-    $conn = new PDO('mysql:host=localhost;charset=utf8;dbname=record', 'admin', 'Afpa1234');
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $db = new PDO('mysql:host=localhost;charset=utf8;dbname=record', 'admin', 'Afpa1234');
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (Exception $e) {
     echo "Erreur de connexion à la base de données : " . $e->getMessage();
     die();
@@ -70,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Préparation et exécution de la requête d'insertion
     $sql_insert = "INSERT INTO disc (disc_title, artist_id, disc_year, disc_genre, disc_label, disc_price, disc_picture) 
                     VALUES (:title, :artist_id, :year, :genre, :label, :price, :picture)";
-    $stmt = $conn->prepare($sql_insert);
+    $stmt = $db->prepare($sql_insert);
     $stmt->bindParam(':title', $new_title);
     $stmt->bindParam(':artist_id', $new_artist_id);
     $stmt->bindParam(':year', $new_year);

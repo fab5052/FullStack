@@ -9,7 +9,7 @@
 
     try
     {
-        $db = new PDO('mysql:host=localhost;charset=utf8;dbname=record', 'root', 'Afpa1234');
+        $db = new PDO('mysql:host=localhost;charset=utf8;dbname=record', 'admin', 'Afpa1234');
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     } catch (Exception $e) {
         echo "Erreur : " .$e->getMessage() . "<br>";
@@ -19,13 +19,13 @@
     
     
         
-        // Vérification de la présence de la clé disc_id dans $_GET
+        // Vérif présence clé disc_id dans $_GET
          if (isset($_GET["disc_id"])) {
-        //     // Préparation de la requête avec un paramètre
+      
              $requete = $db->prepare("SELECT * FROM disc WHERE disc_id = ?");
-        //     // Exécution de la requête en passant la valeur du paramètre
+   
              $requete->execute(array($_GET["disc_id"]));
-        //     // Récupération du résultat
+
              $disc = $requete->fetch(PDO::FETCH_OBJ);
 
              if (!$disc) {

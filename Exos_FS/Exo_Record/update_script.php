@@ -1,7 +1,7 @@
 <?php
 try {
-    $conn = new PDO('mysql:host=localhost;charset=utf8;dbname=record', 'admin', 'Afpa1234');
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $db = new PDO('mysql:host=localhost;charset=utf8;dbname=record', 'admin', 'Afpa1234');
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (Exception $e) {
     echo "Erreur : " . $e->getMessage() . "<br>";
     echo "N° :" . $e->getCode();
@@ -12,7 +12,7 @@ $disc_id = $_GET['disc_id'];
 
 // Récupérer les informations du disque
 $sql_select = "SELECT * FROM disc WHERE disc_id = :disc_id";
-$stmt = $conn->prepare($sql_select);
+$stmt = $db->prepare($sql_select);
 $stmt->bindParam(':disc_id', $disc_id);
 $stmt->execute();
 $disc_info = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Préparation et exécution de la requête de mise à jour
     $sql_update = "UPDATE disc SET disc_title = :title, artist_id = :artist_id, disc_genre = :genre, disc_year = :year, disc_label = :label, disc_price = :price,disc_picture = :picture WHERE disc_id = :disc_id";
 
-    $stmt = $conn->prepare($sql_update);
+    $stmt = $db->prepare($sql_update);
     $stmt->bindParam(':title', $new_title);
     $stmt->bindParam(':artist_id', $new_artist_id);
     $stmt->bindParam(':genre', $new_genre);

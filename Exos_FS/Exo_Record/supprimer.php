@@ -14,14 +14,14 @@ if(isset($_GET['disc_id'])) {
     require_once "detail.php";
     
     try {
-        // Connexion à la base de données
-        $conn = new PDO('mysql:host=localhost;charset=utf8;dbname=record', 'admin', 'Afpa1234');
+        // dbexion à la base de données
+        $db = new PDO('mysql:host=localhost;charset=utf8;dbname=record', 'admin', 'Afpa1234');
         // Configuration pour afficher les erreurs PDO
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         
         // Requête SQL de suppression du disque
         $sql = "DELETE FROM disc WHERE disc_id = :disc_id";
-        $stmt = $conn->prepare($sql);
+        $stmt = $db->prepare($sql);
         $stmt->bindParam(':disc_id', $disc_id);
         $stmt->execute();
         
@@ -32,8 +32,8 @@ if(isset($_GET['disc_id'])) {
         echo "Erreur: " . $e->getMessage();
     }
     
-    // Fermer la connexion à la base de données
-    $conn = null;
+    // Fermer la dbexion à la base de données
+    $db = null;
 } 
 ?>
 
